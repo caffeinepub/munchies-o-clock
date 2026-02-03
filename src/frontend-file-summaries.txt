@@ -1,0 +1,22 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, route definitions for customer (menu, item detail, cart, checkout, order confirmation) and admin pages (orders, menu management), layout with header/bottom nav, and profile setup modal integration.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profiles, admin checks, categories, items, orders, and mutations for creating/updating/deleting menu data and managing order statuses.",
+  "frontend/src/context/CartContext.tsx": "Cart context provider with reducer-based state management, session storage persistence, and actions for adding/removing items, updating quantities, clearing cart, and calculating totals.",
+  "frontend/src/components/auth/LoginButton.tsx": "Login/logout button component using Internet Identity with loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup that prompts for name and saves via backend.",
+  "frontend/src/components/auth/AuthGate.tsx": "Authentication and authorization gate component that shows sign-in prompt for unauthenticated users and access denied screen for non-admin users on admin routes.",
+  "frontend/src/components/brand/BrandHeader.tsx": "Sticky header component displaying the Munchies O'Clock logo, user greeting, and login button.",
+  "frontend/src/components/navigation/BottomNav.tsx": "Mobile-first bottom navigation bar with menu, cart (with badge count), and admin links (visible only to admins).",
+  "frontend/src/components/menu/CategoryNav.tsx": "Category navigation tabs component for filtering menu items by category with \"All\" option.",
+  "frontend/src/components/menu/ItemCard.tsx": "Menu item card component displaying item image, name, description, price, availability status, and add-to-cart button.",
+  "frontend/src/pages/MenuPage.tsx": "Main menu browsing page with category navigation, item grid, authentication gate, and empty states.",
+  "frontend/src/pages/ItemDetailPage.tsx": "Item detail page showing full item information with quantity selector and add-to-cart functionality.",
+  "frontend/src/pages/CartPage.tsx": "Shopping cart page displaying cart items with quantity controls, remove buttons, order summary, and checkout button.",
+  "frontend/src/pages/CheckoutPage.tsx": "Checkout page with order summary and place order functionality (no payment processing).",
+  "frontend/src/pages/OrderConfirmationPage.tsx": "Order confirmation page displaying order details and success message after successful order placement.",
+  "frontend/src/pages/admin/AdminOrdersPage.tsx": "Admin dashboard for viewing and managing orders with status filtering tabs and order status update controls.",
+  "frontend/src/pages/admin/AdminMenuPage.tsx": "Admin dashboard for managing menu categories and items with create/edit/delete functionality and availability toggles.",
+  "frontend/src/utils/menuPlaceholders.ts": "Utility functions for formatting prices and providing placeholder image URLs for menu items.",
+  "frontend/src/utils/orderStatus.ts": "Utility function for determining valid order status transitions based on current status.",
+  "frontend/src/index.css": "Global styles with warm fast-food color palette using OKLCH color system, custom CSS variables for light/dark modes with orange-red primary and golden yellow secondary colors."
+}

@@ -1,0 +1,201 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-passkeys-authentication-for-the-app-and-enforce-role-based-access-customer-vs-admin-throughout-the-ui-and-backend",
+      "featureTitle": "Implement Internet Identity (passkeys) authentication for the app, and enforce role-based access (Customer vs Admin) throughout the UI and backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AuthGate.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-the-customer-facing-menu-browsing-experience-with-category-based-navigation-for-fries-bhajia-meats-mains-drinks-and-sides-sauces-and-include-all-provided-items-under-their-categories",
+      "featureTitle": "Create the customer-facing menu browsing experience with category-based navigation for: Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces; and include all provided items under their categories.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/menu/CategoryNav.tsx",
+        "frontend/src/pages/MenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-item-cards-and-an-item-detail-view-showing-name-image-description-and-price-using-placeholders-for-now-and-make-it-easy-to-replace-placeholder-pricing-descriptions-assets-later",
+      "featureTitle": "Provide item cards and an item detail view showing name, image, description, and price (using placeholders for now), and make it easy to replace placeholder pricing/descriptions/assets later.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/menu/ItemCard.tsx",
+        "frontend/src/pages/ItemDetailPage.tsx",
+        "frontend/src/utils/menuPlaceholders.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-cart-functionality-add-items-to-cart-remove-items-adjust-quantity-and-show-an-order-summary-with-total-cost-calculation",
+      "featureTitle": "Implement cart functionality: add items to cart, remove items, adjust quantity, and show an order summary with total cost calculation.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/menu/ItemCard.tsx",
+        "frontend/src/context/CartContext.tsx",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/ItemDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-simple-non-payment-checkout-flow-that-creates-an-order-in-the-backend-from-the-cart-contents-and-shows-an-order-confirmation-to-the-customer",
+      "featureTitle": "Implement a simple, non-payment checkout flow that creates an order in the backend from the cart contents and shows an order confirmation to the customer.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/context/CartContext.tsx",
+        "frontend/src/pages/CheckoutPage.tsx",
+        "frontend/src/pages/OrderConfirmationPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-admin-order-management-dashboard-admins-can-view-orders-and-update-order-status-through-the-lifecycle-pending-in-progress-completed-cancelled",
+      "featureTitle": "Implement the admin order management dashboard: admins can view orders and update order status through the lifecycle `Pending → In Progress → Completed → Cancelled`.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/admin/AdminOrdersPage.tsx",
+        "frontend/src/utils/orderStatus.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-admin-menu-management-dashboard-admins-can-create-edit-and-delete-categories-and-items-including-item-fields-name-description-price-category-assignment-and-an-availability-toggle",
+      "featureTitle": "Implement the admin menu management dashboard: admins can create, edit, and delete categories and items, including item fields (name, description, price, category assignment) and an availability toggle.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/menu/ItemCard.tsx",
+        "frontend/src/pages/MenuPage.tsx",
+        "frontend/src/pages/admin/AdminMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-coherent-visual-theme-for-a-modern-mobile-first-fast-food-ordering-experience-using-a-warm-appetizing-color-palette-bold-food-imagery-clear-ctas-and-easy-navigation-bottom-nav-or-side-menu-applied-consistently-across-customer-and-admin-sections",
+      "featureTitle": "Create a coherent visual theme for a modern, mobile-first fast food ordering experience using a warm, appetizing color palette, bold food imagery, clear CTAs, and easy navigation (bottom nav or side menu), applied consistently across customer and admin sections.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/navigation/BottomNav.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-logo-generic-food-placeholder-to-the-frontend-and-use-them-in-the-ui-where-item-category-images-are-missing-without-routing-images-through-the-backend",
+      "featureTitle": "Add generated static image assets (logo + generic food placeholder) to the frontend and use them in the UI where item/category images are missing (without routing images through the backend).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/brand/BrandHeader.tsx",
+        "frontend/src/utils/menuPlaceholders.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

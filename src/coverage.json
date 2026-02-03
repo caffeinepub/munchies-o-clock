@@ -1,0 +1,301 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-03T16:43:33.081Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 10,
+    "implemented": 9,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Implement Internet Identity (passkeys) authentication for the app, and enforce role-based access (Customer vs Admin) throughout the UI and backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/LoginButton.tsx",
+          "frontend/src/hooks/useUserAccess.ts",
+          "frontend/src/components/auth/AuthGate.tsx",
+          "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/auth/LoginButton.tsx",
+          "frontend/src/components/auth/AuthGate.tsx",
+          "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-10",
+        "summary": "Add generated static image assets (logo + generic food placeholder) to the frontend and use them in the UI where item/category images are missing (without routing images through the backend).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/munchies-logo.dim_1024x256.png",
+          "frontend/public/assets/generated/menu-item-placeholder.dim_1024x768.png",
+          "frontend/src/components/brand/BrandHeader.tsx",
+          "frontend/src/utils/menuPlaceholders.ts",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/munchies-logo.dim_1024x256.png",
+          "frontend/public/assets/generated/menu-item-placeholder.dim_1024x768.png",
+          "frontend/src/components/brand/BrandHeader.tsx",
+          "frontend/src/utils/menuPlaceholders.ts",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Make the first authenticated principal to use the app become the Admin automatically, and persist this admin assignment so it remains stable across reloads/upgrades.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Create the customer-facing menu browsing experience with category-based navigation for: Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces; and include all provided items under their categories.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useMenuData.ts",
+          "frontend/src/pages/MenuPage.tsx",
+          "frontend/src/components/menu/CategoryNav.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/MenuPage.tsx",
+          "frontend/src/components/menu/CategoryNav.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Provide item cards and an item detail view showing name, image, description, and price (using placeholders for now), and make it easy to replace placeholder pricing/descriptions/assets later.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/menuPlaceholders.ts",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/pages/ItemDetailPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/menuPlaceholders.ts",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/pages/ItemDetailPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Implement cart functionality: add items to cart, remove items, adjust quantity, and show an order summary with total cost calculation.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/context/CartContext.tsx",
+          "frontend/src/hooks/useCart.ts",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/pages/ItemDetailPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/context/CartContext.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/pages/ItemDetailPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Implement a simple, non-payment checkout flow that creates an order in the backend from the cart contents and shows an order confirmation to the customer.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CheckoutPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/context/CartContext.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CheckoutPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/context/CartContext.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Implement the admin order management dashboard: admins can view orders and update order status through the lifecycle `Pending → In Progress → Completed → Cancelled`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useAdminOrders.ts",
+          "frontend/src/utils/orderStatus.ts",
+          "frontend/src/pages/admin/AdminOrdersPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/orderStatus.ts",
+          "frontend/src/pages/admin/AdminOrdersPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Implement the admin menu management dashboard: admins can create, edit, and delete categories and items, including item fields (name, description, price, category assignment) and an availability toggle.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useAdminMenu.ts",
+          "frontend/src/pages/admin/AdminMenuPage.tsx",
+          "frontend/src/pages/MenuPage.tsx",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/admin/AdminMenuPage.tsx",
+          "frontend/src/pages/MenuPage.tsx",
+          "frontend/src/components/menu/ItemCard.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Create a coherent visual theme for a modern, mobile-first fast food ordering experience using a warm, appetizing color palette, bold food imagery, clear CTAs, and easy navigation (bottom nav or side menu), applied consistently across customer and admin sections.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/navigation/BottomNav.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/navigation/BottomNav.tsx",
+          "frontend/src/App.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/Dockerfile",
+    "build-template/LICENSE",
+    "build-template/README.md",
+    "build-template/deploy.sh",
+    "build-template/icp.yaml",
+    "build-template/package.json",
+    "build-template/pnpm-lock.yaml",
+    "build-template/pnpm-workspace.yaml",
+    "build-template/scripts/prune-unused-images.js",
+    "build-template/scripts/resize-images.js",
+    "build-template/src/backend/canister.yaml",
+    "build-template/src/backend/system-idl/aaaaa-aa.did",
+    "build-template/src/frontend/canister.yaml",
+    "build-template/src/frontend/components.json",
+    "build-template/src/frontend/env.json",
+    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
+    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
+    "build-template/src/frontend/eslint.config.js",
+    "build-template/src/frontend/package.json",
+    "build-template/src/frontend/postcss.config.js",
+    "build-template/src/frontend/src/components/ui/accordion.tsx",
+    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
+    "build-template/src/frontend/src/components/ui/alert.tsx",
+    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
+    "build-template/src/frontend/src/components/ui/avatar.tsx",
+    "build-template/src/frontend/src/components/ui/badge.tsx",
+    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
+    "build-template/src/frontend/src/components/ui/button.tsx",
+    "build-template/src/frontend/src/components/ui/calendar.tsx",
+    "build-template/src/frontend/src/components/ui/card.tsx",
+    "build-template/src/frontend/src/components/ui/carousel.tsx",
+    "build-template/src/frontend/src/components/ui/chart.tsx",
+    "build-template/src/frontend/src/components/ui/checkbox.tsx",
+    "build-template/src/frontend/src/components/ui/collapsible.tsx",
+    "build-template/src/frontend/src/components/ui/command.tsx",
+    "build-template/src/frontend/src/components/ui/context-menu.tsx",
+    "build-template/src/frontend/src/components/ui/dialog.tsx",
+    "build-template/src/frontend/src/components/ui/drawer.tsx",
+    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
+    "build-template/src/frontend/src/components/ui/form.tsx",
+    "build-template/src/frontend/src/components/ui/hover-card.tsx",
+    "build-template/src/frontend/src/components/ui/input-otp.tsx",
+    "build-template/src/frontend/src/components/ui/input.tsx",
+    "build-template/src/frontend/src/components/ui/label.tsx",
+    "build-template/src/frontend/src/components/ui/menubar.tsx",
+    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
+    "build-template/src/frontend/src/components/ui/pagination.tsx",
+    "build-template/src/frontend/src/components/ui/popover.tsx",
+    "build-template/src/frontend/src/components/ui/progress.tsx",
+    "build-template/src/frontend/src/components/ui/radio-group.tsx",
+    "build-template/src/frontend/src/components/ui/resizable.tsx",
+    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
+    "build-template/src/frontend/src/components/ui/select.tsx",
+    "build-template/src/frontend/src/components/ui/separator.tsx",
+    "build-template/src/frontend/src/components/ui/sheet.tsx",
+    "build-template/src/frontend/src/components/ui/sidebar.tsx",
+    "build-template/src/frontend/src/components/ui/skeleton.tsx",
+    "build-template/src/frontend/src/components/ui/slider.tsx",
+    "build-template/src/frontend/src/components/ui/sonner.tsx",
+    "build-template/src/frontend/src/components/ui/switch.tsx",
+    "build-template/src/frontend/src/components/ui/table.tsx",
+    "build-template/src/frontend/src/components/ui/tabs.tsx",
+    "build-template/src/frontend/src/components/ui/textarea.tsx",
+    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
+    "build-template/src/frontend/src/components/ui/toggle.tsx",
+    "build-template/src/frontend/src/components/ui/tooltip.tsx",
+    "build-template/src/frontend/src/hooks/use-mobile.tsx",
+    "build-template/src/frontend/src/lib/utils.ts",
+    "build-template/src/frontend/tsconfig.json",
+    "build-template/src/frontend/vite.config.js",
+    "build-template/tsconfig.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/public/assets/generated/menu-item-placeholder.dim_1024x768.png",
+    "frontend/public/assets/generated/munchies-logo.dim_1024x256.png",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/auth/AuthGate.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/brand/BrandHeader.tsx",
+    "frontend/src/components/menu/CategoryNav.tsx",
+    "frontend/src/components/menu/ItemCard.tsx",
+    "frontend/src/components/navigation/BottomNav.tsx",
+    "frontend/src/config.ts",
+    "frontend/src/context/CartContext.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/CheckoutPage.tsx",
+    "frontend/src/pages/ItemDetailPage.tsx",
+    "frontend/src/pages/MenuPage.tsx",
+    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/src/pages/admin/AdminMenuPage.tsx",
+    "frontend/src/pages/admin/AdminOrdersPage.tsx",
+    "frontend/src/ui-summary.json",
+    "frontend/src/utils/StorageClient.ts",
+    "frontend/src/utils/menuPlaceholders.ts",
+    "frontend/src/utils/orderStatus.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

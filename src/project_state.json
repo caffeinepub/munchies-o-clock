@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Mobile-first interactive fast food ordering app for “Munchies O’Clock” enabling customers to browse a category-based menu, view item details, manage a cart, and place orders via a simple non-payment checkout flow, with a modern UI optimized for quick ordering, plus email sign-up and admin capabilities for order management and menu editing.",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-passkeys-authentication-for-the-app-and-enforce-role-based-access-customer-vs-admin-throughout-the-ui-and-backend",
+      "title": "Implement Internet Identity (passkeys) authentication for the app, and enforce role-based access (Customer vs Admin) throughout the UI and backend.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-customer-facing-menu-browsing-experience-with-category-based-navigation-for-fries-bhajia-meats-mains-drinks-and-sides-sauces-and-include-all-provided-items-under-their-categories",
+      "title": "Create the customer-facing menu browsing experience with category-based navigation for: Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces; and include all provided items under their categories.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-item-cards-and-an-item-detail-view-showing-name-image-description-and-price-using-placeholders-for-now-and-make-it-easy-to-replace-placeholder-pricing-descriptions-assets-later",
+      "title": "Provide item cards and an item detail view showing name, image, description, and price (using placeholders for now), and make it easy to replace placeholder pricing/descriptions/assets later.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-cart-functionality-add-items-to-cart-remove-items-adjust-quantity-and-show-an-order-summary-with-total-cost-calculation",
+      "title": "Implement cart functionality: add items to cart, remove items, adjust quantity, and show an order summary with total cost calculation.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-simple-non-payment-checkout-flow-that-creates-an-order-in-the-backend-from-the-cart-contents-and-shows-an-order-confirmation-to-the-customer",
+      "title": "Implement a simple, non-payment checkout flow that creates an order in the backend from the cart contents and shows an order confirmation to the customer.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-admin-order-management-dashboard-admins-can-view-orders-and-update-order-status-through-the-lifecycle-pending-in-progress-completed-cancelled",
+      "title": "Implement the admin order management dashboard: admins can view orders and update order status through the lifecycle `Pending → In Progress → Completed → Cancelled`.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-admin-menu-management-dashboard-admins-can-create-edit-and-delete-categories-and-items-including-item-fields-name-description-price-category-assignment-and-an-availability-toggle",
+      "title": "Implement the admin menu management dashboard: admins can create, edit, and delete categories and items, including item fields (name, description, price, category assignment) and an availability toggle.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-coherent-visual-theme-for-a-modern-mobile-first-fast-food-ordering-experience-using-a-warm-appetizing-color-palette-bold-food-imagery-clear-ctas-and-easy-navigation-bottom-nav-or-side-menu-applied-consistently-across-customer-and-admin-sections",
+      "title": "Create a coherent visual theme for a modern, mobile-first fast food ordering experience using a warm, appetizing color palette, bold food imagery, clear CTAs, and easy navigation (bottom nav or side menu), applied consistently across customer and admin sections.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-logo-generic-food-placeholder-to-the-frontend-and-use-them-in-the-ui-where-item-category-images-are-missing-without-routing-images-through-the-backend",
+      "title": "Add generated static image assets (logo + generic food placeholder) to the frontend and use them in the UI where item/category images are missing (without routing images through the backend).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Build category-based menu browsing for Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces with the provided items",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Create item cards/detail views showing name, image, description, and price",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement cart management (add to cart, remove from cart)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add order summary with total cost calculation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement a simple checkout flow to place orders",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Deliver responsive mobile-first UI with clean modern design, warm appetizing palette, bold food images, easy navigation, and clear CTAs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add email-based sign-up/sign-in (authentication) for customer and admin accounts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add admin support for order management (view/manage incoming orders)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add admin menu editing (create/update/remove menu items and categories)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Implement authentication using Internet Identity (passkeys) for customer and admin access, structured so email-based auth can be added later if enabled",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Make the first authenticated principal to use the app become the Admin automatically, and persist this admin assignment so it remains stable across reloads/upgrades.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "architecturalNotes": [
+    "Plan for role-based access control (admin vs customer) to gate admin order management and menu editing features.",
+    "Use Internet Identity (passkeys) for authentication initially; design auth abstraction to allow adding email-based sign-up/sign-in later if/when the platform enables email.",
+    "Admin access control: the first registered/authenticated user (via Internet Identity) will be assigned the admin role for v1.",
+    "Order lifecycle for admin management: Pending → In Progress → Completed → Cancelled.",
+    "Use placeholder prices/descriptions/images initially; app should support swapping in real pricing/assets later without reworking core flows.",
+    "Checkout is non-payment; placing an order should persist the order in the backend for later admin management (no payments unless explicitly added later)."
+  ],
+  "knownIssues": [
+    "Email-based sign-up/sign-in cannot be implemented currently due to platform/account email capability being disabled; use Internet Identity (passkeys) instead until email is enabled."
+  ],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Wordmark logo reading “Munchies O’Clock” in a bold, modern fast-food style (munchies-logo.dim_1024x256.png)\n- Generic appetizing fast-food placeholder photo/illustration with warm tones (menu-item-placeholder.dim_1024x768.png)",
+  "generatedImages": [
+    {
+      "filename": "munchies-logo.dim_1024x256.png",
+      "description": "Wordmark logo reading “Munchies O’Clock” in a bold, modern fast-food style",
+      "targetWidth": 1024,
+      "targetHeight": 256
+    },
+    {
+      "filename": "menu-item-placeholder.dim_1024x768.png",
+      "description": "Generic appetizing fast-food placeholder photo/illustration with warm tones",
+      "targetWidth": 1024,
+      "targetHeight": 768
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Munchies O’Clock",
+  "clarification_mode": "thinking",
+  "clarification_rounds": 0,
+  "requiresBackendChanges": true,
+  "requiresFrontendChanges": true
+}

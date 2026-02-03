@@ -1,0 +1,228 @@
+{
+  "kind": "build_request",
+  "title": "Munchies O’Clock: Customer ordering flow + Internet Identity auth + admin order/menu management",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity (passkeys) authentication for the app, and enforce role-based access (Customer vs Admin) throughout the UI and backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "scope should integrate admin support for order management and also provide menu editing for the admin account.....and an easy emai lsign up",
+          "yes provide the identity passkey....",
+          "yes the first will be the admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign in/out using Internet Identity.",
+        "Unauthenticated users are prompted to sign in before placing an order or accessing admin pages.",
+        "Admin-only screens and backend methods reject non-admin principals.",
+        "No edits are required to immutable auth hook paths; auth is composed via existing hooks."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Make the first authenticated principal to use the app become the Admin automatically, and persist this admin assignment so it remains stable across reloads/upgrades.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-8"
+        ],
+        "quotes": [
+          "yes the first will be the admin"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If no admin exists yet, the first caller that triggers onboarding/registration becomes admin.",
+        "Subsequent users are assigned the customer role by default.",
+        "Admin status persists in canister state and remains after canister upgrade (no migration file unless required by implementation)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create the customer-facing menu browsing experience with category-based navigation for: Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces; and include all provided items under their categories.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Menu Categories & Items\n\nFries\n\nSeasoned Fries\n\nGarlic Fries\n\nMasala Fries\n\nLoaded Cheese Fries\n\nBacon Fries\n\nRolex Fries\n\nBhajia\n\nMeats & Mains\n\nMunchies Fried Chicken\n\nCorn Dogs\n\nKebabs\n\nPulled Pork Sandwich\n\nHot Dogs\n\nHamburgers\n\nFish Fingers\n\nChopped Cheese Sandwich\n\nSausages\n\nSamosas\n\nSpanish Toast\n\nDrinks\n\nMinute Maid\n\nSoda\n\nYoghurt\n\nWater\n\nMonster Energy\n\nRed Bull\n\nSides & Sauces\n\nColeslaw\n\nThousand Island Dip\n\nTartar Sauce"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Customers can browse categories and see item lists per category.",
+        "All listed items exist in the initial menu dataset (with placeholder price/description/image).",
+        "Menu data is fetched from the backend (not hardcoded only in the frontend), so admins can edit it later.",
+        "Mobile-first layout works well on small screens (category navigation + scrollable item list)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Provide item cards and an item detail view showing name, image, description, and price (using placeholders for now), and make it easy to replace placeholder pricing/descriptions/assets later.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3"
+        ],
+        "quotes": [
+          "Item cards with name, image, description, and price",
+          "I  will  provide pricing and assets later"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each menu item renders with name, placeholder image, placeholder description, and placeholder price.",
+        "Click/tap opens a detail view with the same fields and an add-to-cart action.",
+        "Placeholders are stored/served in a way that can be updated by admin menu editing and/or future asset replacement without code changes to every component."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement cart functionality: add items to cart, remove items, adjust quantity, and show an order summary with total cost calculation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add to cart / remove from cart functionality",
+          "Order summary with total cost"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can add items from item cards/detail to the cart.",
+        "Users can increase/decrease quantities and remove line items.",
+        "Cart view shows line totals and a computed grand total.",
+        "Cart state is preserved during navigation within the session."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement a simple, non-payment checkout flow that creates an order in the backend from the cart contents and shows an order confirmation to the customer.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "also no payments unless you explicitly request them"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Checkout contains no payment UI or payment integrations.",
+        "Placing an order writes an order record to the backend associated with the caller principal.",
+        "After successful placement, the customer sees an order confirmation with order ID and summary.",
+        "Cart is cleared after successful order submission."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement the admin order management dashboard: admins can view orders and update order status through the lifecycle `Pending → In Progress → Completed → Cancelled`.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-7",
+          "msg-8"
+        ],
+        "quotes": [
+          "2. First option",
+          "Example: `Pending → In Progress → Completed → Cancelled`"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can view a list of orders with key details (created time, items count, total, current status).",
+        "Admin can filter or segment orders by status.",
+        "Admin can change an order status to any valid next state in the lifecycle (and cannot set invalid states).",
+        "Non-admin users cannot access the admin orders screen or mutate order statuses."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement the admin menu management dashboard: admins can create, edit, and delete categories and items, including item fields (name, description, price, category assignment) and an availability toggle.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "provide menu editing for the admin account....."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can add/edit/remove categories.",
+        "Admin can add/edit/remove menu items and assign them to categories.",
+        "Admin can toggle item availability; unavailable items are not orderable (and are clearly indicated/hidden for customers).",
+        "Customer menu updates reflect admin changes after refresh (or via React Query refetch)."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Create a coherent visual theme for a modern, mobile-first fast food ordering experience using a warm, appetizing color palette, bold food imagery, clear CTAs, and easy navigation (bottom nav or side menu), applied consistently across customer and admin sections.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Clean and modern design",
+          "Bold food images",
+          "Warm, appetizing color palette",
+          "Easy navigation with bottom or side menu",
+          "Clear call-to-action buttons"
+        ]
+      },
+      "acceptanceCriteria": [
+        "UI is consistently themed (colors, typography, spacing, components) across all screens.",
+        "Navigation is mobile-first and supports quick category switching and cart access.",
+        "CTAs (Add to cart, Checkout, Place order, Update status, Save item) are prominent and readable.",
+        "Theme does not default to a blue/purple primary palette unless needed for contrast/accessibility."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add generated static image assets (logo + generic food placeholder) to the frontend and use them in the UI where item/category images are missing (without routing images through the backend).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3"
+        ],
+        "quotes": [
+          "Bold food images",
+          "I  will  provide pricing and assets later"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are stored under `frontend/public/assets/generated` and referenced directly by the frontend.",
+        "Menu items without a custom image display the generic placeholder image.",
+        "Branding uses the generated logo in the header/login screen (or equivalent prominent location)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in `backend/main.mo`); create `backend/migration.mo` only if an upgrade-safe state change requires it.",
+    "Do not edit frontend files under `frontend/src/components/ui` or the immutable auth hook paths listed in SYSTEM_CONTEXT; compose them instead.",
+    "No payments implementation.",
+    "Email-based sign-up/sign-in is out of scope for now due to platform capability; authentication must use Internet Identity (passkeys)."
+  ],
+  "nonGoals": [
+    "Real payment processing (Stripe or otherwise).",
+    "Real-time order updates via WebSockets/push notifications.",
+    "Third-party auth providers (Google/Facebook/GitHub/Auth0).",
+    "External databases or non-Motoko backend services."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Wordmark logo reading “Munchies O’Clock” in a bold, modern fast-food style (munchies-logo.dim_1024x256.png)",
+      "Generic appetizing fast-food placeholder photo/illustration with warm tones (menu-item-placeholder.dim_1024x768.png)"
+    ],
+    "edits": []
+  }
+}

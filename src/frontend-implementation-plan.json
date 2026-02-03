@@ -1,0 +1,318 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Munchies O’Clock — Frontend ordering flow, II auth, and admin dashboards",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Integrate Internet Identity sign-in/out and enforce Customer vs Admin role-based access throughout the UI.",
+      "acceptanceCriteria": [
+        "Users can sign in/out using Internet Identity.",
+        "Unauthenticated users are prompted to sign in before placing an order or accessing admin pages.",
+        "Admin-only screens and backend methods reject non-admin principals.",
+        "No edits are required to immutable auth hook paths; auth is composed via existing hooks."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button using the existing Internet Identity hook and clear React Query cache on logout. Use the authorization component guidance for auth flows and cache clearing; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserAccess.ts",
+          "operation": "create",
+          "description": "Add React Query hooks that read caller role/admin status (e.g., via getCallerUserRole/isCallerAdmin) using the actor from useActor, and expose booleans for guest/user/admin to support UI gating. Use the authorization component guidance for role-based access; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AuthGate.tsx",
+          "operation": "create",
+          "description": "Create a wrapper component to require authentication (and optionally admin role) before rendering protected screens; show a friendly sign-in prompt (and access denied screen for non-admin). Use the authorization component guidance for AccessDeniedScreen behavior and auth gating; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup modal that asks for a display name and saves it via saveCallerUserProfile; prevent modal flash by matching the authorization component guidance for profile-query loading states; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Add app-level routing and route guards: protect checkout and order placement behind authentication; protect /admin/* behind admin gating; integrate ProfileSetupModal after login. Use the authorization component guidance for composing auth via existing hooks; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build customer menu browsing with category navigation (Fries, Bhajia, Meats & Mains, Drinks, Sides & Sauces) driven by backend-fetched menu data.",
+      "acceptanceCriteria": [
+        "Customers can browse categories and see item lists per category.",
+        "All listed items exist in the initial menu dataset (with placeholder price/description/image).",
+        "Menu data is fetched from the backend (not hardcoded only in the frontend), so admins can edit it later.",
+        "Mobile-first layout works well on small screens (category navigation + scrollable item list)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useMenuData.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch categories and items from the backend actor (getAllCategories/getAllItems), and provide helpers for grouping items by category and sorting categories for navigation."
+        },
+        {
+          "path": "frontend/src/pages/MenuPage.tsx",
+          "operation": "create",
+          "description": "Implement the mobile-first menu browsing screen with category-based navigation and scrollable item lists, using backend-fetched categories/items."
+        },
+        {
+          "path": "frontend/src/components/menu/CategoryNav.tsx",
+          "operation": "create",
+          "description": "Create a category navigation component (tabs/segmented control style) optimized for mobile to switch between Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces. Use shadcn-ui components where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire MenuPage into the app routing as the primary customer browsing view and ensure navigation allows quick access back to menu browsing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add item cards and an item detail view showing name, image, description, and price with placeholders that can be replaced later without per-component code edits.",
+      "acceptanceCriteria": [
+        "Each menu item renders with name, placeholder image, placeholder description, and placeholder price.",
+        "Click/tap opens a detail view with the same fields and an add-to-cart action.",
+        "Placeholders are stored/served in a way that can be updated by admin menu editing and/or future asset replacement without code changes to every component."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/menuPlaceholders.ts",
+          "operation": "create",
+          "description": "Centralize placeholder behavior (fallback description, fallback price formatting if needed, and fallback image path) so replacing placeholders later does not require editing multiple UI components."
+        },
+        {
+          "path": "frontend/src/components/menu/ItemCard.tsx",
+          "operation": "create",
+          "description": "Create a menu item card that displays name, description, price, and image with a fallback to the generated placeholder asset; include a clear CTA to view details or add to cart. Use shadcn-ui card/button primitives where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ItemDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement an item detail view (routed) that shows the same fields plus an add-to-cart action; uses centralized placeholder utilities and the generated placeholder image when needed."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the item detail route and ensure item cards navigate to it (no orphan views)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement session-preserved cart functionality with add/remove, quantity adjustment, and an order summary with totals.",
+      "acceptanceCriteria": [
+        "Users can add items from item cards/detail to the cart.",
+        "Users can increase/decrease quantities and remove line items.",
+        "Cart view shows line totals and a computed grand total.",
+        "Cart state is preserved during navigation within the session."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/context/CartContext.tsx",
+          "operation": "create",
+          "description": "Implement a cart context/store (with reducer-style actions) that supports add/remove/update quantity and persists in-session (e.g., via sessionStorage) to survive navigation within the session."
+        },
+        {
+          "path": "frontend/src/hooks/useCart.ts",
+          "operation": "create",
+          "description": "Add a small hook wrapper around CartContext to provide typed cart actions/selectors to pages and components."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "create",
+          "description": "Create a cart screen that lists line items with quantity controls, remove actions, line totals, and a computed grand total, with a prominent Checkout CTA. Use shadcn-ui components where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/menu/ItemCard.tsx",
+          "operation": "modify",
+          "description": "Wire item cards to add-to-cart actions (with sensible defaults like quantity=1) while keeping the ability to open the item detail view."
+        },
+        {
+          "path": "frontend/src/pages/ItemDetailPage.tsx",
+          "operation": "modify",
+          "description": "Wire the add-to-cart action from the item detail view into CartContext and provide navigation to cart/checkout."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the cart route and ensure it is reachable from primary navigation (e.g., bottom nav/cart button)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add a simple non-payment checkout flow that places an order via the backend and shows an order confirmation, clearing the cart on success.",
+      "acceptanceCriteria": [
+        "Checkout contains no payment UI or payment integrations.",
+        "Placing an order writes an order record to the backend associated with the caller principal.",
+        "After successful placement, the customer sees an order confirmation with order ID and summary.",
+        "Cart is cleared after successful order submission."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "operation": "create",
+          "description": "Create a checkout page that requires authentication, shows an order summary from the cart, and submits the order to the backend (placeOrder) with no payment UI; handle success/failure states gracefully."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "operation": "create",
+          "description": "Create an order confirmation screen that shows order ID and summary after successful placement; ensure it can render on refresh when navigated to with an order id parameter by refetching necessary data if needed."
+        },
+        {
+          "path": "frontend/src/context/CartContext.tsx",
+          "operation": "modify",
+          "description": "Add a cart clear action and ensure the checkout flow clears the cart only after successful order submission."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register checkout and order confirmation routes and protect checkout behind AuthGate to prompt unauthenticated users to sign in."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Implement an admin orders dashboard to view, filter by status, and update order status through Pending → In Progress → Completed → Cancelled.",
+      "acceptanceCriteria": [
+        "Admin can view a list of orders with key details (created time, items count, total, current status).",
+        "Admin can filter or segment orders by status.",
+        "Admin can change an order status to any valid next state in the lifecycle (and cannot set invalid states).",
+        "Non-admin users cannot access the admin orders screen or mutate order statuses."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useAdminOrders.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for admin order listing (getAllOrders) and status updates (updateOrderStatus), including cache invalidation/refetch after mutations."
+        },
+        {
+          "path": "frontend/src/utils/orderStatus.ts",
+          "operation": "create",
+          "description": "Add UI-level lifecycle rules for allowed status transitions (Pending → In Progress → Completed/Cancelled, etc.) to prevent invalid state changes in the admin dashboard."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminOrdersPage.tsx",
+          "operation": "create",
+          "description": "Build an admin-only orders dashboard with status filters/segments and controls to update status only to valid next states, showing key order details. Use shadcn-ui components (tables, selects, tabs, dialogs) where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register /admin/orders route and wrap it with admin gating so non-admins see an access denied experience."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement an admin menu management dashboard to create/edit/delete categories and items, assign categories, set price/description, and toggle availability; ensure customer view reflects updates.",
+      "acceptanceCriteria": [
+        "Admin can add/edit/remove categories.",
+        "Admin can add/edit/remove menu items and assign them to categories.",
+        "Admin can toggle item availability; unavailable items are not orderable (and are clearly indicated/hidden for customers).",
+        "Customer menu updates reflect admin changes after refresh (or via React Query refetch)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useAdminMenu.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for admin category/item mutations (create/update/delete) and item availability toggling, and coordinate refetching of getAllCategories/getAllItems after changes."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminMenuPage.tsx",
+          "operation": "create",
+          "description": "Build an admin-only menu management dashboard with category management and item management (name, description, price, category assignment, availability toggle). Use shadcn-ui form/dialog components where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MenuPage.tsx",
+          "operation": "modify",
+          "description": "Update customer menu browsing to clearly indicate or hide unavailable items and prevent adding unavailable items to the cart."
+        },
+        {
+          "path": "frontend/src/components/menu/ItemCard.tsx",
+          "operation": "modify",
+          "description": "Disable or adjust CTAs for unavailable items (e.g., show 'Unavailable' and block add-to-cart) based on the available flag."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register /admin/menu route and wrap it with admin gating; ensure admin navigation links are visible only to admins."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply a modern, warm, mobile-first fast food theme with strong CTAs and easy navigation across customer and admin sections.",
+      "acceptanceCriteria": [
+        "UI is consistently themed (colors, typography, spacing, components) across all screens.",
+        "Navigation is mobile-first and supports quick category switching and cart access.",
+        "CTAs (Add to cart, Checkout, Place order, Update status, Save item) are prominent and readable.",
+        "Theme does not default to a blue/purple primary palette unless needed for contrast/accessibility."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styling with a warm, appetizing palette via CSS variables/Tailwind tokens, set consistent typography/spacing defaults, and ensure primary/CTA colors are not default blue/purple."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust theme tokens (via CSS variable usage and optional extensions) to support the warm brand palette and consistent component styling across the app."
+        },
+        {
+          "path": "frontend/src/components/navigation/BottomNav.tsx",
+          "operation": "create",
+          "description": "Implement a mobile-first bottom navigation that provides quick access to Menu, Cart, and Admin sections (admin links only visible for admins). Use shadcn-ui primitives where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Use a shared layout that applies the theme consistently and wires BottomNav across customer and admin screens without creating orphan pages."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add generated logo and generic menu placeholder images as static frontend assets and use them when item/category images are missing.",
+      "acceptanceCriteria": [
+        "Generated images are stored under `frontend/public/assets/generated` and referenced directly by the frontend.",
+        "Menu items without a custom image display the generic placeholder image.",
+        "Branding uses the generated logo in the header/login screen (or equivalent prominent location)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/munchies-logo.dim_1024x256.png",
+          "operation": "create",
+          "description": "Add the generated wordmark logo asset at the exact required path for direct frontend use."
+        },
+        {
+          "path": "frontend/public/assets/generated/menu-item-placeholder.dim_1024x768.png",
+          "operation": "create",
+          "description": "Add the generated generic fast-food placeholder image at the exact required path for direct frontend use."
+        },
+        {
+          "path": "frontend/src/components/brand/BrandHeader.tsx",
+          "operation": "create",
+          "description": "Create a small brand header component that references the generated logo at frontend/public/assets/generated/munchies-logo.dim_1024x256.png and can be reused on login/protected screens."
+        },
+        {
+          "path": "frontend/src/utils/menuPlaceholders.ts",
+          "operation": "modify",
+          "description": "Reference frontend/public/assets/generated/menu-item-placeholder.dim_1024x768.png as the default fallback image for menu items without custom imagery."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire BrandHeader into the main layout and auth-gated screens so branding is prominent and consistent."
+        }
+      ]
+    }
+  ]
+}

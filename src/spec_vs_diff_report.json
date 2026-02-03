@@ -1,0 +1,88 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-03T16:43:32.955Z",
+  "summary": "Diff adds a new Motoko backend actor with category/item/order/profile types and admin-gated mutations, plus a new React/TanStack Router frontend with Internet Identity auth, AuthGate role gating, menu browsing, item detail, cart, checkout, order confirmation route, and admin orders/menu pages. Several key BuildRequest requirements are only partially evidenced due to truncated backend and omitted files (notably initial menu seed data, first-user admin persistence, order status transition enforcement, and generated static image assets).",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Make the first authenticated principal to use the app become the Admin automatically, and persist this admin assignment so it remains stable across reloads/upgrades.",
+      "reason": "The diff shows an access-control system and admin checks, but does not show logic that assigns the first authenticated principal as admin, nor stable persistence across upgrades (no stable vars or migration evidence in the shown backend excerpt).",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useActor.ts (uses secret-based init rather than first-user assignment)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Include all provided menu items under their categories in the initial menu dataset, fetched from the backend.",
+      "reason": "Frontend fetches categories/items from the backend, but the backend diff excerpt does not show any initial seeded categories/items for Fries, Bhajia, Meats & Mains, Drinks, and Sides & Sauces, nor the full list of provided items. Backend file is truncated before any seeding could be verified.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useQueries.ts (getAllCategories/getAllItems)",
+        "frontend/src/components/menu/CategoryNav.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Admin order management must enforce valid lifecycle transitions (Pending → In Progress → Completed → Cancelled) and reject invalid transitions in backend methods.",
+      "reason": "Frontend includes a helper for “next valid statuses”, but the backend enforcement (reject invalid transitions) is not visible in the truncated backend diff (updateOrderStatus implementation not shown).",
+      "evidence": [
+        "frontend/src/pages/admin/AdminOrdersPage.tsx (uses getNextValidStatuses)",
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Add generated static image assets (logo + generic food placeholder) under frontend/public/assets/generated and use them in the UI.",
+      "reason": "UI references the logo path and uses a placeholder image helper, but the actual generated asset files are not shown in the diff summary (likely among omitted files), so their presence under the required directory cannot be confirmed from available evidence.",
+      "evidence": [
+        "frontend/src/components/brand/BrandHeader.tsx (references /assets/generated/munchies-logo.dim_1024x256.png)",
+        "frontend/src/components/menu/ItemCard.tsx (uses getItemImageUrl())"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Secret-parameter based access-control initialization via `caffeineAdminToken` and calling a backend `_initializeAccessControlWithSecret(adminToken)` method.",
+      "reason": "BuildRequest specifies first authenticated principal becomes admin and role enforcement via Internet Identity; it does not request a secret token mechanism or URL parameter-based admin initialization.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken'); actor._initializeAccessControlWithSecret(adminToken))"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/AuthGate.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/brand/BrandHeader.tsx",
+    "frontend/src/components/menu/CategoryNav.tsx",
+    "frontend/src/components/menu/ItemCard.tsx",
+    "frontend/src/components/navigation/BottomNav.tsx",
+    "frontend/src/context/CartContext.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/CheckoutPage.tsx",
+    "frontend/src/pages/ItemDetailPage.tsx",
+    "frontend/src/pages/MenuPage.tsx",
+    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/src/pages/admin/AdminMenuPage.tsx",
+    "frontend/src/pages/admin/AdminOrdersPage.tsx",
+    "frontend/src/utils/menuPlaceholders.ts",
+    "frontend/src/utils/orderStatus.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
